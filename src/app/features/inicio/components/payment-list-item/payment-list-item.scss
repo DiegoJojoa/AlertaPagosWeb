@@ -1,0 +1,114 @@
+@use 'typography';
+@use 'breakpoints';
+
+.payment-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 71px;
+  padding: var(--space-4) var(--space-6);
+  overflow: hidden;
+  cursor: pointer;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-surface-variant);
+  }
+
+  &::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    content: '';
+    background-color: transparent;
+  }
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.payment-item--urgente::before {
+  background-color: var(--color-warning);
+}
+
+.payment-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.payment-item__title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.payment-item__proveedor {
+  color: var(--color-on-surface);
+  @include typography.type(body-medium);
+}
+
+.payment-item__urgente-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-warning-container);
+  color: var(--color-on-warning-container);
+  @include typography.type(label-small);
+}
+
+.payment-item__fecha {
+  color: var(--color-on-surface-variant);
+  @include typography.type(caption);
+}
+
+.payment-item__amount-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+  color: var(--color-on-surface-variant);
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.payment-item__monto {
+  color: var(--color-on-surface);
+  @include typography.type(title-small);
+}
+
+.payment-item__badge {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  @include typography.type(label-medium);
+}
+
+.payment-item__badge--pendiente {
+  background-color: var(--color-warning-container);
+  color: var(--color-on-warning-container);
+}
+
+.payment-item__badge--pagada {
+  background-color: var(--color-success-container);
+  color: var(--color-on-success-container);
+}
+
+.payment-item__badge--vencida {
+  background-color: var(--color-error-container);
+  color: var(--color-on-error-container);
+}

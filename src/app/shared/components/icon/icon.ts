@@ -1,6 +1,15 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-export type IconName = 'home' | 'file-text' | 'pie-chart' | 'settings' | 'menu' | 'close' | 'user';
+export type IconName =
+  | 'home'
+  | 'file-text'
+  | 'pie-chart'
+  | 'settings'
+  | 'menu'
+  | 'close'
+  | 'user'
+  | 'chevron-right'
+  | 'alert-triangle';
 
 @Component({
   selector: 'app-icon',

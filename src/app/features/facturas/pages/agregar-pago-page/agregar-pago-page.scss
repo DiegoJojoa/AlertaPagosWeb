@@ -1,0 +1,12 @@
+@use 'typography';
+
+.page__title {
+  color: var(--color-on-surface);
+  margin-bottom: var(--space-2);
+  @include typography.type(headline);
+}
+
+.page__subtitle {
+  color: var(--color-on-surface-variant);
+  @include typography.type(body-large);
+}

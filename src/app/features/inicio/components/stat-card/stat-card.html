@@ -1,0 +1,7 @@
+<article class="stat-card" [class]="'stat-card--' + variant()">
+  <span class="stat-card__label">{{ label() }}</span>
+  <div class="stat-card__values">
+    <span class="stat-card__count">{{ cantidad() }}</span>
+    <span class="stat-card__total">{{ total() | monto }}</span>
+  </div>
+</article>

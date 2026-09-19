@@ -1,0 +1,59 @@
+@use 'typography';
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: 98px;
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+}
+
+.stat-card--pendiente {
+  background-color: var(--color-warning-container);
+}
+
+.stat-card--pagada {
+  background-color: var(--color-success-container);
+}
+
+.stat-card--vencida {
+  background-color: var(--color-error-container);
+}
+
+.stat-card__label {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  @include typography.type(label-small);
+}
+
+.stat-card--pendiente .stat-card__label {
+  color: var(--color-warning);
+}
+
+.stat-card--pagada .stat-card__label {
+  color: var(--color-success);
+}
+
+.stat-card--vencida .stat-card__label {
+  color: var(--color-error);
+}
+
+.stat-card__values {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.stat-card__count {
+  color: var(--color-on-surface);
+  @include typography.type(data-display);
+}
+
+.stat-card__total {
+  color: var(--color-on-surface-variant);
+  @include typography.type(body-small);
+}

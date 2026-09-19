@@ -1,12 +1,124 @@
 @use 'typography';
+@use 'breakpoints';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.page__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
 
 .page__title {
   color: var(--color-on-surface);
-  margin-bottom: var(--space-2);
   @include typography.type(headline);
 }
 
-.page__subtitle {
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.payment-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-16) var(--space-4);
+  text-align: center;
   color: var(--color-on-surface-variant);
+  border: 1px dashed var(--color-outline-variant);
+  border-radius: var(--radius-md);
+}
+
+.page__empty-title {
+  color: var(--color-on-surface);
+  @include typography.type(title-large);
+}
+
+.page__empty-subtitle {
   @include typography.type(body-large);
+}
+
+.page__error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--color-error-container);
+  border-radius: var(--radius-md);
+}
+
+.page__error-message {
+  color: var(--color-on-error-container);
+  @include typography.type(body-large);
+}
+
+.skeleton-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-variant) 25%,
+    var(--color-outline-variant) 37%,
+    var(--color-surface-variant) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+.skeleton--card {
+  height: 98px;
+}
+
+.skeleton--row {
+  height: 71px;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
 }

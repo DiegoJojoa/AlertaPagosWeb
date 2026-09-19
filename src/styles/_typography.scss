@@ -1,6 +1,8 @@
 // Escala tipográfica - Design System AlertaPagos (Material Design 3)
 // Fuente: Figma "Web Mockups - AlertaPagos", página "Tipografía" (node 52:2)
 // Familia: Inter (Google Fonts)
+@use 'sass:map';
+
 :root {
   --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
@@ -88,14 +90,14 @@ $type-scale: (
 );
 
 @mixin type($style) {
-  $props: map-get($type-scale, $style);
+  $props: map.get($type-scale, $style);
 
   @if $props == null {
     @error 'Estilo tipográfico desconocido: #{$style}';
   }
 
   font-family: var(--font-family-base);
-  font-weight: map-get($props, weight);
-  font-size: map-get($props, size);
-  line-height: map-get($props, line-height);
+  font-weight: map.get($props, weight);
+  font-size: map.get($props, size);
+  line-height: map.get($props, line-height);
 }
