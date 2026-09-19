@@ -1,0 +1,56 @@
+@use 'typography';
+@use 'breakpoints';
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 56px;
+  padding: 0 var(--space-6);
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.header__nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  color: var(--color-on-surface);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-surface-variant);
+  }
+
+  &:active {
+    background-color: var(--color-primary-tint-12);
+  }
+
+  @include breakpoints.respond-up(breakpoints.$breakpoint-md) {
+    display: none;
+  }
+}
+
+.header__brand {
+  @include typography.type(title-medium);
+  color: var(--color-on-surface);
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+  color: var(--color-on-surface-variant);
+}
+
+.header__user-name {
+  @include typography.type(body-medium);
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+    display: none;
+  }
+}

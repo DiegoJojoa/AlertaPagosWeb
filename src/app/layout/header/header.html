@@ -1,0 +1,19 @@
+<header class="header">
+  <button
+    type="button"
+    class="header__nav-toggle"
+    [attr.aria-expanded]="isNavOpen()"
+    aria-controls="app-sidebar-nav"
+    [attr.aria-label]="isNavOpen() ? 'Cerrar navegación' : 'Abrir navegación'"
+    (click)="toggleNav.emit()"
+  >
+    <app-icon [name]="isNavOpen() ? 'close' : 'menu'" />
+  </button>
+
+  <span class="header__brand">AlertaPagos</span>
+
+  <div class="header__user">
+    <app-icon name="user" [size]="28" />
+    <span class="header__user-name">Usuario</span>
+  </div>
+</header>

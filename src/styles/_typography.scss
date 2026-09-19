@@ -1,0 +1,101 @@
+// Escala tipográfica - Design System AlertaPagos (Material Design 3)
+// Fuente: Figma "Web Mockups - AlertaPagos", página "Tipografía" (node 52:2)
+// Familia: Inter (Google Fonts)
+:root {
+  --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+// weight, size, line-height por estilo de la escala tipográfica.
+$type-scale: (
+  display-large: (
+    weight: 700,
+    size: 2rem,
+    // 32px
+    line-height: 1.4,
+  ),
+  headline: (
+    weight: 700,
+    size: 1.5rem,
+    // 24px
+    line-height: 1.33,
+  ),
+  title-large: (
+    weight: 700,
+    size: 1.125rem,
+    // 18px
+    line-height: 1.44,
+  ),
+  title-medium: (
+    weight: 700,
+    size: 1.125rem,
+    // 18px
+    line-height: 1.44,
+  ),
+  title-small: (
+    weight: 500,
+    size: 0.875rem,
+    // 14px
+    line-height: 1.43,
+  ),
+  body-large: (
+    weight: 400,
+    size: 1rem,
+    // 16px
+    line-height: 1.5,
+  ),
+  body-medium: (
+    weight: 500,
+    size: 0.875rem,
+    // 14px
+    line-height: 1.43,
+  ),
+  body-small: (
+    weight: 400,
+    size: 0.875rem,
+    // 14px
+    line-height: 1.43,
+  ),
+  label-large: (
+    weight: 600,
+    size: 0.8125rem,
+    // 13px
+    line-height: 1.38,
+  ),
+  label-medium: (
+    weight: 500,
+    size: 0.8125rem,
+    // 13px
+    line-height: 1.38,
+  ),
+  label-small: (
+    weight: 400,
+    size: 0.75rem,
+    // 12px
+    line-height: 1.33,
+  ),
+  data-display: (
+    weight: 700,
+    size: 1.75rem,
+    // 28px
+    line-height: 1.21,
+  ),
+  caption: (
+    weight: 400,
+    size: 0.875rem,
+    // 14px
+    line-height: 1.43,
+  ),
+);
+
+@mixin type($style) {
+  $props: map-get($type-scale, $style);
+
+  @if $props == null {
+    @error 'Estilo tipográfico desconocido: #{$style}';
+  }
+
+  font-family: var(--font-family-base);
+  font-weight: map-get($props, weight);
+  font-size: map-get($props, size);
+  line-height: map-get($props, line-height);
+}
