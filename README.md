@@ -35,8 +35,3 @@ El proyecto usa npm como único gestor de paquetes (ver `package-lock.json`). La
 ## Estructura
 
 Este es el estado inicial del proyecto (fase de creación y configuración). La estructura por features, layout y componentes visuales se desarrollarán en fases posteriores.
-
-## Notas
-
-- `docs/` y `.figma/` (si existen) están excluidos de la compilación de Angular.
-- No hay backend ni persistencia real: las próximas fases usarán servicios con datos mock.
