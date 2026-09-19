@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+// Tokens de diseño globales
+@use 'styles/colors';
+@use 'styles/typography';
+@use 'styles/spacing';
+@use 'styles/radius';
+@use 'styles/shadows';
+
+// Reset y estilos base
+@use 'styles/reset';

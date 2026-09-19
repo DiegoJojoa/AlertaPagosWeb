@@ -1,0 +1,32 @@
+@if (isOpen()) {
+  <button
+    type="button"
+    class="sidebar-nav__backdrop"
+    aria-label="Cerrar navegación"
+    (click)="closeRequested.emit()"
+  ></button>
+}
+
+<nav
+  id="app-sidebar-nav"
+  class="sidebar-nav"
+  [class.sidebar-nav--open]="isOpen()"
+  aria-label="Navegación principal"
+>
+  <ul class="sidebar-nav__list">
+    @for (item of navItems; track item.path) {
+      <li>
+        <a
+          class="sidebar-nav__link"
+          [routerLink]="item.path"
+          routerLinkActive="sidebar-nav__link--active"
+          [ariaCurrentWhenActive]="'page'"
+          (click)="closeRequested.emit()"
+        >
+          <app-icon [name]="item.icon" [size]="18" />
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

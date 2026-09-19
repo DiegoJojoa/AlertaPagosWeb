@@ -1,0 +1,118 @@
+@switch (name()) {
+  @case ('home') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3.5 10.5 12 3l8.5 7.5" />
+      <path d="M5.5 9.5V20a1 1 0 0 0 1 1h3v-6h5v6h3a1 1 0 0 0 1-1V9.5" />
+    </svg>
+  }
+  @case ('file-text') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 2.5h8l5 5V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1Z" />
+      <path d="M14 2.5v5h5" />
+      <line x1="8" y1="13" x2="16" y2="13" />
+      <line x1="8" y1="17" x2="13" y2="17" />
+    </svg>
+  }
+  @case ('pie-chart') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 12V3a9 9 0 1 1-9 9h9Z" />
+    </svg>
+  }
+  @case ('settings') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="3" />
+      <path
+        d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M6 6l1.4 1.4M16.6 16.6 18 18M18 6l-1.4 1.4M7.4 16.6 6 18"
+      />
+    </svg>
+  }
+  @case ('menu') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="4" y1="12" x2="20" y2="12" />
+      <line x1="4" y1="18" x2="20" y2="18" />
+    </svg>
+  }
+  @case ('close') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <line x1="5" y1="5" x2="19" y2="19" />
+      <line x1="19" y1="5" x2="5" y2="19" />
+    </svg>
+  }
+  @case ('user') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 20.5a7 7 0 0 1 14 0" />
+    </svg>
+  }
+}

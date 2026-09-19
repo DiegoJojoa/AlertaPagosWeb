@@ -1,0 +1,8 @@
+// Escala de radios de borde (Material Design 3 shape scale)
+:root {
+  --radius-xs: 4px; // inputs, chips
+  --radius-sm: 8px; // botones, tarjetas pequeñas
+  --radius-md: 12px; // tarjetas, modales
+  --radius-lg: 16px; // contenedores grandes
+  --radius-full: 9999px; // controles tipo pill / avatares
+}
