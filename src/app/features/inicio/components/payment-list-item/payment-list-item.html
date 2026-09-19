@@ -1,0 +1,30 @@
+<li>
+  <a
+    class="payment-item"
+    [class.payment-item--urgente]="urgente()"
+    [routerLink]="['/facturas', pago().id]"
+  >
+    <div class="payment-item__info">
+      <div class="payment-item__title-row">
+        <span class="payment-item__proveedor">{{ pago().proveedor }}</span>
+        @if (urgente()) {
+          <span class="payment-item__urgente-badge">
+            <app-icon name="alert-triangle" [size]="12" />
+            URGENTE
+          </span>
+        }
+      </div>
+      <span class="payment-item__fecha"
+        >Vence el {{ pago().fechaVencimiento | date: 'd MMM' }}</span
+      >
+    </div>
+
+    <div class="payment-item__amount-status">
+      <span class="payment-item__monto">{{ pago().monto | monto }}</span>
+      <span class="payment-item__badge" [class]="'payment-item__badge--' + pago().estado">
+        {{ estadoLabel() }}
+      </span>
+      <app-icon name="chevron-right" [size]="16" />
+    </div>
+  </a>
+</li>

@@ -1,0 +1,50 @@
+// Estilos de botón reutilizables (variantes "Primario" y "Outlined" del Figma).
+@use 'typography';
+
+.btn-primary,
+.btn-outlined {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  @include typography.type(label-large);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background-color: #0d4f9e;
+  }
+
+  &:active {
+    background-color: #0a3f7e;
+  }
+}
+
+.btn-outlined {
+  background-color: transparent;
+  border-color: var(--color-outline);
+  color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-primary-tint-12);
+  }
+
+  &:active {
+    background-color: rgb(21 101 192 / 20%);
+  }
+}
+
+.btn-primary:disabled,
+.btn-outlined:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

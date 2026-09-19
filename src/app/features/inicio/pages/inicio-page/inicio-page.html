@@ -1,4 +1,70 @@
 <section class="page">
-  <h1 class="page__title">Inicio</h1>
-  <p class="page__subtitle">Esta sección estará disponible próximamente.</p>
+  @switch (estado().tipo) {
+    @case ('cargando') {
+      <div class="page__header-row">
+        <h1 class="page__title">Próximos pagos</h1>
+      </div>
+
+      <div class="skeleton-stats" aria-hidden="true">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="skeleton skeleton--card"></div>
+        }
+      </div>
+
+      <div class="skeleton-list" aria-hidden="true">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="skeleton skeleton--row"></div>
+        }
+      </div>
+
+      <p class="sr-only" role="status">Cargando próximos pagos…</p>
+    }
+
+    @case ('error') {
+      <div class="page__error" role="alert">
+        <p class="page__error-message">No se pudieron cargar los pagos. Intenta de nuevo.</p>
+        <button type="button" class="btn-outlined" (click)="reintentar()">Reintentar</button>
+      </div>
+    }
+
+    @case ('contenido') {
+      <div class="page__header-row">
+        <h1 class="page__title">Próximos pagos</h1>
+        <a class="btn-primary" routerLink="/facturas/nueva">+ Agregar pago</a>
+      </div>
+
+      @if (resumen(); as resumen) {
+        <div class="stats-row">
+          <app-stat-card
+            variant="pendiente"
+            [cantidad]="resumen.pendientes.cantidad"
+            [total]="resumen.pendientes.total"
+          />
+          <app-stat-card
+            variant="pagada"
+            [cantidad]="resumen.pagadas.cantidad"
+            [total]="resumen.pagadas.total"
+          />
+          <app-stat-card
+            variant="vencida"
+            [cantidad]="resumen.vencidas.cantidad"
+            [total]="resumen.vencidas.total"
+          />
+        </div>
+      }
+
+      @if (pagosPendientes().length > 0) {
+        <ul class="payment-list">
+          @for (item of pagosPendientes(); track item.pago.id) {
+            <app-payment-list-item [pago]="item.pago" [urgente]="item.urgente" />
+          }
+        </ul>
+      } @else {
+        <div class="page__empty">
+          <p class="page__empty-title">No tienes pagos pendientes</p>
+          <p class="page__empty-subtitle">Cuando agregues un pago próximo, aparecerá aquí.</p>
+        </div>
+      }
+    }
+  }
 </section>
