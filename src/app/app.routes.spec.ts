@@ -37,7 +37,6 @@ describe('app routes', () => {
   it('should resolve /facturas/:id to the invoice detail page', async () => {
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/facturas/pago-1');
-    expect(harness.routeNativeElement?.textContent).toContain('Detalle de factura');
-    expect(harness.routeNativeElement?.textContent).toContain('pago-1');
+    expect(harness.routeNativeElement?.textContent).toContain('Volver a facturas');
   });
 });

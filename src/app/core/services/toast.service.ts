@@ -23,6 +23,14 @@ export class ToastService {
     this.show(text, 'error', durationMs);
   }
 
+  warning(text: string, durationMs = DURACION_POR_DEFECTO_MS): void {
+    this.show(text, 'warning', durationMs);
+  }
+
+  danger(text: string, durationMs = DURACION_POR_DEFECTO_MS): void {
+    this.show(text, 'danger', durationMs);
+  }
+
   dismiss(id: number): void {
     this.toasts.update((current) => current.filter((toast) => toast.id !== id));
   }

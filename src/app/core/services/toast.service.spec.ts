@@ -29,6 +29,18 @@ describe('ToastService', () => {
     expect(service.activeToasts()[0].variant).toBe('error');
   });
 
+  it('should add a warning toast', () => {
+    service.warning('Recordatorio pospuesto correctamente');
+
+    expect(service.activeToasts()[0].variant).toBe('warning');
+  });
+
+  it('should add a danger toast', () => {
+    service.danger('Factura anulada correctamente');
+
+    expect(service.activeToasts()[0].variant).toBe('danger');
+  });
+
   it('should auto-dismiss a toast after its duration elapses', () => {
     service.success('Se va a ocultar', 1000);
     expect(service.activeToasts().length).toBe(1);

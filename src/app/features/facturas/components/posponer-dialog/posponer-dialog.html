@@ -1,0 +1,54 @@
+<button
+  type="button"
+  class="confirm-dialog__backdrop"
+  aria-label="Cerrar"
+  (click)="onBackdropClick()"
+></button>
+
+<div
+  class="confirm-dialog"
+  role="alertdialog"
+  aria-modal="true"
+  aria-labelledby="posponer-dialog-title"
+>
+  <h2 id="posponer-dialog-title" class="confirm-dialog__title">Posponer recordatorio</h2>
+  <p class="confirm-dialog__description">¿Cuándo quieres volver a recibir este aviso?</p>
+
+  <div class="posponer-dialog__options" role="radiogroup" aria-label="Cuándo volver a recordar">
+    @for (opcion of opciones; track opcion.valor) {
+      <label
+        class="posponer-dialog__option"
+        [class.posponer-dialog__option--selected]="seleccionada() === opcion.valor"
+      >
+        <input
+          type="radio"
+          name="opcion-posponer"
+          [value]="opcion.valor"
+          [checked]="seleccionada() === opcion.valor"
+          [disabled]="loading()"
+          (change)="seleccionar(opcion.valor)"
+        />
+        <span>{{ opcion.etiqueta }}</span>
+      </label>
+    }
+  </div>
+
+  @if (errorMessage(); as error) {
+    <p class="confirm-dialog__error" role="alert">{{ error }}</p>
+  }
+
+  <div class="confirm-dialog__actions">
+    <button
+      #cancelButton
+      type="button"
+      class="btn-outlined"
+      [disabled]="loading()"
+      (click)="cancelled.emit()"
+    >
+      Cancelar
+    </button>
+    <button type="button" class="btn-primary" [disabled]="loading()" (click)="confirmar()">
+      {{ loading() ? 'Posponiendo…' : 'Confirmar' }}
+    </button>
+  </div>
+</div>

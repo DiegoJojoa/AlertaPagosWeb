@@ -1,4 +1,158 @@
 <section class="page">
-  <h1 class="page__title">Detalle de factura</h1>
-  <p class="page__subtitle">{{ subtitulo() }}</p>
+  <a class="breadcrumb" routerLink="/facturas">‹ Volver a facturas</a>
+
+  @switch (estado().tipo) {
+    @case ('cargando') {
+      <p class="page__loading" role="status">Cargando factura…</p>
+    }
+
+    @case ('error') {
+      <div class="page__error" role="alert">
+        <p class="page__error-message">No se pudo cargar la factura. Intenta de nuevo.</p>
+        <button type="button" class="btn-outlined" (click)="reintentar()">Reintentar</button>
+      </div>
+    }
+
+    @case ('no-encontrada') {
+      <div class="page__empty">
+        <p class="page__empty-title">No encontramos esta factura</p>
+        <p class="page__empty-subtitle">
+          Puede que haya sido eliminada o que el enlace sea incorrecto.
+        </p>
+        <a class="btn-outlined" routerLink="/facturas">Volver a facturas</a>
+      </div>
+    }
+
+    @case ('contenido') {
+      @if (factura(); as factura) {
+        <div class="factura-header">
+          <div class="factura-header__icon">
+            <app-icon name="file-text" [size]="16" />
+          </div>
+          <div class="factura-header__titles">
+            <p class="factura-header__numero">{{ factura.numero }}</p>
+            <p class="factura-header__servicio">Servicio: {{ factura.servicio }}</p>
+          </div>
+        </div>
+
+        <div class="factura-table">
+          <div class="factura-row">
+            <p class="factura-row__label">Empresa / Serv:</p>
+            <p class="factura-row__value">{{ factura.empresa }} - {{ factura.servicio }}</p>
+          </div>
+
+          <div class="factura-row">
+            <p class="factura-row__label">Monto:</p>
+            <p class="factura-row__value">{{ factura.monto | monto }}</p>
+          </div>
+
+          <div class="factura-row">
+            <p class="factura-row__label">Vence:</p>
+            <p class="factura-row__value">{{ factura.fechaVencimiento | date: 'd MMM y' }}</p>
+          </div>
+
+          <div class="factura-row">
+            <p class="factura-row__label">Estado:</p>
+            <span class="factura-badge" [class]="'factura-badge--' + factura.estado">
+              {{ estadoLabel() }}
+            </span>
+          </div>
+
+          <div class="factura-row">
+            <p class="factura-row__label">Historial:</p>
+            @if (factura.historial.length > 0) {
+              <p class="factura-row__value">
+                @for (evento of factura.historial; track $index; let last = $last) {
+                  {{ evento.descripcion }} {{ evento.fecha | date: 'd MMM' }}
+                  @if (!last) {
+                    <span> · </span>
+                  }
+                }
+              </p>
+            } @else {
+              <p class="factura-row__value factura-row__value--muted">Sin historial</p>
+            }
+          </div>
+        </div>
+
+        @if (mostrarOpciones()) {
+          <div class="factura-options">
+            <h2 class="section-title">Opciones</h2>
+
+            <button
+              type="button"
+              class="factura-action factura-action--success"
+              (click)="abrirModalPagar()"
+            >
+              <span>Marcar como pagada</span>
+              <app-icon name="chevron-right" [size]="20" />
+            </button>
+
+            <button
+              type="button"
+              class="factura-action factura-action--neutral"
+              (click)="abrirModalPosponer()"
+            >
+              <span>Posponer</span>
+              <app-icon name="chevron-right" [size]="20" />
+            </button>
+
+            <button
+              type="button"
+              class="factura-action factura-action--danger"
+              (click)="abrirModalAnular()"
+            >
+              <span>Anular factura</span>
+              <app-icon name="chevron-right" [size]="20" />
+            </button>
+          </div>
+        } @else {
+          <p class="factura-options-note">
+            {{
+              factura.estado === 'pagada'
+                ? 'Esta factura ya fue pagada.'
+                : 'Esta factura fue anulada.'
+            }}
+          </p>
+        }
+      }
+    }
+  }
+
+  @if (mostrarModalPagar()) {
+    <app-confirm-dialog
+      title="¿Confirmar pago?"
+      [description]="descripcionPago()"
+      confirmLabel="Confirmar pago"
+      loadingLabel="Procesando pago…"
+      variant="primary"
+      [loading]="pagando()"
+      [errorMessage]="errorPagar()"
+      (confirmed)="confirmarPago()"
+      (cancelled)="cerrarModalPagar()"
+    />
+  }
+
+  @if (mostrarModalPosponer()) {
+    <app-posponer-dialog
+      [loading]="posponiendo()"
+      [errorMessage]="errorPosponer()"
+      (confirmed)="confirmarPosponer($event)"
+      (cancelled)="cerrarModalPosponer()"
+    />
+  }
+
+  @if (mostrarModalAnular()) {
+    <app-confirm-dialog
+      title="¿Anular esta factura?"
+      [description]="descripcionAnular()"
+      confirmLabel="Anular factura"
+      loadingLabel="Anulando factura…"
+      variant="danger"
+      [loading]="anulando()"
+      [errorMessage]="errorAnular()"
+      (confirmed)="confirmarAnular()"
+      (cancelled)="cerrarModalAnular()"
+    />
+  }
 </section>

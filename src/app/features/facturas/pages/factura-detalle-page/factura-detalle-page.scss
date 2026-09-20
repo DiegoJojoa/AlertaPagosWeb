@@ -1,12 +1,200 @@
 @use 'typography';
+@use 'breakpoints';
 
-.page__title {
-  color: var(--color-on-surface);
-  margin-bottom: var(--space-2);
-  @include typography.type(headline);
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 720px;
 }
 
-.page__subtitle {
+.breadcrumb,
+.factura-header__servicio,
+.factura-options-note {
   color: var(--color-on-surface-variant);
+  @include typography.type(body-medium);
+}
+
+.breadcrumb {
+  align-self: flex-start;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-on-surface);
+  }
+}
+
+.factura-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.factura-header__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--color-on-surface);
+  background-color: var(--color-background);
+  border: 2px solid var(--color-on-surface);
+  border-radius: var(--radius-full);
+}
+
+.factura-header__titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.factura-header__numero,
+.section-title,
+.page__empty-title {
+  color: var(--color-on-surface);
+  @include typography.type(title-large);
+}
+
+.factura-table {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-on-surface);
+  border-radius: var(--radius-xs);
+}
+
+.factura-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-on-surface);
+  @include typography.type(body-medium);
+
+  & + & {
+    border-top: 1px solid var(--color-outline);
+  }
+
+  @include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+}
+
+.factura-row__label {
+  flex-shrink: 0;
+  width: 140px;
+  color: var(--color-on-surface-variant);
+}
+
+.factura-row__value--muted {
+  color: var(--color-on-surface-variant);
+}
+
+.factura-badge {
+  display: inline-flex;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  @include typography.type(label-medium);
+}
+
+.factura-badge--pendiente {
+  background-color: var(--color-warning-container);
+  color: var(--color-on-warning-container);
+}
+
+.factura-badge--pagada {
+  background-color: var(--color-success-container);
+  color: var(--color-on-success-container);
+}
+
+.factura-badge--vencida {
+  background-color: var(--color-error-container);
+  color: var(--color-on-error-container);
+}
+
+.factura-badge--anulada {
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+}
+
+.factura-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.factura-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  cursor: pointer;
+  border: 1.5px solid;
+  border-radius: var(--radius-sm);
+  @include typography.type(body-medium);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.factura-action--success {
+  color: var(--color-success);
+  background-color: var(--color-success-container);
+  border-color: var(--color-success);
+}
+
+.factura-action--neutral {
+  color: var(--color-on-surface);
+  background-color: var(--color-background);
+  border-color: var(--color-outline);
+}
+
+.factura-action--danger {
+  color: var(--color-error);
+  background-color: var(--color-error-container);
+  border-color: var(--color-error);
+}
+
+.page__loading {
+  padding: var(--space-16) 0;
+  color: var(--color-on-surface-variant);
+  text-align: center;
+  @include typography.type(body-large);
+}
+
+.page__error,
+.page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: var(--radius-md);
+}
+
+.page__error {
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--color-error-container);
+}
+
+.page__error-message {
+  color: var(--color-on-error-container);
+  @include typography.type(body-large);
+}
+
+.page__empty {
+  gap: var(--space-2);
+  padding: var(--space-8);
+  color: var(--color-on-surface-variant);
+  border: 1px dashed var(--color-outline-variant);
+}
+
+.page__empty-subtitle {
   @include typography.type(body-large);
 }
