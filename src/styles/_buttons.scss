@@ -1,8 +1,9 @@
-// Estilos de botón reutilizables (variantes "Primario" y "Outlined" del Figma).
+// Estilos de botón reutilizables (variantes "Primario", "Outlined" y "Destructivo" del Figma).
 @use 'typography';
 
 .btn-primary,
-.btn-outlined {
+.btn-outlined,
+.btn-danger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -43,8 +44,22 @@
   }
 }
 
+.btn-danger {
+  background-color: var(--color-error);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background-color: var(--color-on-error-container);
+  }
+
+  &:active {
+    background-color: #8c1515;
+  }
+}
+
 .btn-primary:disabled,
-.btn-outlined:disabled {
+.btn-outlined:disabled,
+.btn-danger:disabled {
   opacity: 0.5;
   pointer-events: none;
 }

@@ -1,0 +1,53 @@
+// Estilos de campos de formulario reutilizables (label, input/select/textarea,
+// estado de error). Ver también _buttons.scss para las acciones del formulario.
+@use 'typography';
+
+@mixin form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  label {
+    color: var(--color-on-surface);
+    @include typography.type(body-medium);
+  }
+
+  input,
+  select,
+  textarea {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-xs);
+    @include typography.type(body-large);
+
+    &:focus-visible {
+      border-color: var(--color-primary);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--color-primary-tint-12);
+    }
+
+    &.form__input--error {
+      border-color: var(--color-error);
+    }
+  }
+
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+}
+
+@mixin form-error {
+  color: var(--color-error);
+  @include typography.type(caption);
+}
+
+@mixin form-save-error {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-error-container);
+  color: var(--color-on-error-container);
+  border-radius: var(--radius-sm);
+  @include typography.type(body-medium);
+}

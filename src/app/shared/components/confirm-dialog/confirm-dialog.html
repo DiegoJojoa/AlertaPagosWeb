@@ -1,0 +1,40 @@
+<button
+  type="button"
+  class="confirm-dialog__backdrop"
+  aria-label="Cerrar"
+  (click)="onBackdropClick()"
+></button>
+
+<div
+  class="confirm-dialog"
+  role="alertdialog"
+  aria-modal="true"
+  aria-labelledby="confirm-dialog-title"
+>
+  <h2 id="confirm-dialog-title" class="confirm-dialog__title">{{ title() }}</h2>
+  <p class="confirm-dialog__description">{{ description() }}</p>
+
+  @if (errorMessage(); as error) {
+    <p class="confirm-dialog__error" role="alert">{{ error }}</p>
+  }
+
+  <div class="confirm-dialog__actions">
+    <button
+      #cancelButton
+      type="button"
+      class="btn-outlined"
+      [disabled]="loading()"
+      (click)="cancelled.emit()"
+    >
+      {{ cancelLabel() }}
+    </button>
+    <button
+      type="button"
+      [class]="variant() === 'danger' ? 'btn-danger' : 'btn-primary'"
+      [disabled]="loading()"
+      (click)="confirmed.emit()"
+    >
+      {{ loading() ? loadingLabel() : confirmLabel() }}
+    </button>
+  </div>
+</div>

@@ -1,4 +1,136 @@
 <section class="page">
   <h1 class="page__title">Configuración</h1>
-  <p class="page__subtitle">Esta sección estará disponible próximamente.</p>
+
+  <div class="form__field">
+    <label for="idioma">Idioma</label>
+    <select
+      id="idioma"
+      [value]="idioma()"
+      [disabled]="guardandoIdioma()"
+      (change)="cambiarIdioma($event)"
+    >
+      @for (opcion of idiomas; track opcion.codigo) {
+        <option [value]="opcion.codigo">{{ opcion.etiqueta }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="form__field">
+    <label for="moneda">Moneda</label>
+    <select
+      id="moneda"
+      [value]="moneda()"
+      [disabled]="guardandoMoneda()"
+      (change)="cambiarMoneda($event)"
+    >
+      @for (opcion of monedas; track opcion.codigo) {
+        <option [value]="opcion.codigo">{{ opcion.etiqueta }}</option>
+      }
+    </select>
+  </div>
+
+  <h2 class="section-title">Administración de cuenta</h2>
+
+  <div class="account-rows">
+    <div class="account-row-group">
+      <button
+        type="button"
+        class="account-row-group__trigger"
+        [class.account-row-group__trigger--open]="mostrarCambiarContrasena()"
+        [attr.aria-expanded]="mostrarCambiarContrasena()"
+        aria-controls="panel-cambiar-contrasena"
+        (click)="toggleCambiarContrasena()"
+      >
+        <span>Cambiar contraseña</span>
+        <app-icon name="chevron-right" [size]="16" />
+      </button>
+
+      @if (mostrarCambiarContrasena()) {
+        <div id="panel-cambiar-contrasena" class="account-row-group__panel">
+          <form
+            class="form"
+            [formGroup]="formContrasena"
+            (ngSubmit)="guardarContrasena()"
+            novalidate
+          >
+            <div class="form__field">
+              <label for="actual">Contraseña actual</label>
+              <input
+                id="actual"
+                type="password"
+                formControlName="actual"
+                autocomplete="current-password"
+                [class.form__input--error]="mostrarErrorContrasena()"
+              />
+            </div>
+
+            <div class="form__field">
+              <label for="nueva">Nueva contraseña</label>
+              <input
+                id="nueva"
+                type="password"
+                formControlName="nueva"
+                autocomplete="new-password"
+                [class.form__input--error]="mostrarErrorContrasena()"
+              />
+            </div>
+
+            <div class="form__field">
+              <label for="confirmar">Confirmar nueva contraseña</label>
+              <input
+                id="confirmar"
+                type="password"
+                formControlName="confirmar"
+                autocomplete="new-password"
+                [class.form__input--error]="mostrarErrorContrasena()"
+                [attr.aria-invalid]="mostrarErrorContrasena()"
+                [attr.aria-describedby]="mostrarErrorContrasena() ? 'contrasena-error' : null"
+              />
+            </div>
+
+            @if (mostrarErrorContrasena()) {
+              <p id="contrasena-error" class="form__error">{{ mensajeErrorContrasena() }}</p>
+            }
+
+            <div class="form__actions">
+              <button type="button" class="btn-outlined" (click)="cancelarCambiarContrasena()">
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="btn-primary"
+                [disabled]="!formContrasenaCompleto() || guardandoContrasena()"
+              >
+                {{ guardandoContrasena() ? 'Guardando…' : 'Guardar' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      }
+    </div>
+
+    <button type="button" class="account-row" (click)="cerrarSesion()">
+      <span>Cerrar sesión</span>
+      <app-icon name="chevron-right" [size]="16" />
+    </button>
+
+    <button type="button" class="account-row account-row--danger" (click)="abrirModalEliminar()">
+      <span>Eliminar cuenta</span>
+      <app-icon name="chevron-right" [size]="16" />
+    </button>
+  </div>
+
+  @if (mostrarModalEliminar()) {
+    <app-confirm-dialog
+      title="¿Eliminar tu cuenta?"
+      description="Esta acción no se puede deshacer. Perderás tu historial de pagos y recordatorios configurados."
+      confirmLabel="Eliminar cuenta"
+      loadingLabel="Eliminando cuenta…"
+      variant="danger"
+      [loading]="eliminando()"
+      [errorMessage]="errorEliminar()"
+      (confirmed)="confirmarEliminarCuenta()"
+      (cancelled)="cerrarModalEliminar()"
+    />
+  }
 </section>
