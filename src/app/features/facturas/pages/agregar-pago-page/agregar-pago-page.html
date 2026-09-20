@@ -1,4 +1,96 @@
 <section class="page">
   <h1 class="page__title">Agregar pago manual</h1>
-  <p class="page__subtitle">Este formulario estará disponible próximamente.</p>
+  <p class="page__subtitle">Registra un pago que no está vinculado a una factura existente.</p>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+    <div class="form__field">
+      <label for="proveedor">Proveedor / Empresa</label>
+      <input
+        id="proveedor"
+        type="text"
+        formControlName="proveedor"
+        placeholder="Ej. Energía de Bogotá"
+        autocomplete="off"
+        [class.form__input--error]="mostrarError('proveedor')"
+        [attr.aria-invalid]="mostrarError('proveedor')"
+        [attr.aria-describedby]="mostrarError('proveedor') ? 'proveedor-error' : null"
+      />
+      @if (mostrarError('proveedor')) {
+        <p id="proveedor-error" class="form__error">{{ mensajeError('proveedor') }}</p>
+      }
+    </div>
+
+    <div class="form__field">
+      <label for="tipoServicio">Tipo de servicio</label>
+      <select
+        id="tipoServicio"
+        formControlName="tipoServicio"
+        [class.form__input--error]="mostrarError('tipoServicio')"
+        [attr.aria-invalid]="mostrarError('tipoServicio')"
+        [attr.aria-describedby]="mostrarError('tipoServicio') ? 'tipoServicio-error' : null"
+      >
+        <option [ngValue]="null" disabled>Selecciona un tipo</option>
+        @for (tipo of tiposServicio; track tipo) {
+          <option [ngValue]="tipo">{{ tipo }}</option>
+        }
+      </select>
+      @if (mostrarError('tipoServicio')) {
+        <p id="tipoServicio-error" class="form__error">{{ mensajeError('tipoServicio') }}</p>
+      }
+    </div>
+
+    <div class="form__field">
+      <label for="monto">Monto ($)</label>
+      <input
+        id="monto"
+        type="text"
+        inputmode="numeric"
+        formControlName="monto"
+        appCurrencyInput
+        placeholder="0"
+        [class.form__input--error]="mostrarError('monto')"
+        [attr.aria-invalid]="mostrarError('monto')"
+        [attr.aria-describedby]="mostrarError('monto') ? 'monto-error' : null"
+      />
+      @if (mostrarError('monto')) {
+        <p id="monto-error" class="form__error">{{ mensajeError('monto') }}</p>
+      }
+    </div>
+
+    <div class="form__field">
+      <label for="fecha">Fecha</label>
+      <input
+        id="fecha"
+        type="date"
+        formControlName="fecha"
+        [class.form__input--error]="mostrarError('fecha')"
+        [attr.aria-invalid]="mostrarError('fecha')"
+        [attr.aria-describedby]="mostrarError('fecha') ? 'fecha-error' : null"
+      />
+      @if (mostrarError('fecha')) {
+        <p id="fecha-error" class="form__error">{{ mensajeError('fecha') }}</p>
+      }
+    </div>
+
+    <div class="form__field">
+      <label for="notas">Notas <span class="form__optional">(opcional)</span></label>
+      <textarea
+        id="notas"
+        formControlName="notas"
+        rows="3"
+        placeholder="Agrega un comentario…"
+      ></textarea>
+    </div>
+
+    @if (errorGuardado(); as error) {
+      <p class="form__save-error" role="alert">{{ error }}</p>
+    }
+
+    <div class="form__actions">
+      <a class="btn-outlined" routerLink="/inicio">Cancelar</a>
+      <button type="submit" class="btn-primary" [disabled]="!formValido() || guardando()">
+        {{ guardando() ? 'Guardando pago…' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
 </section>
