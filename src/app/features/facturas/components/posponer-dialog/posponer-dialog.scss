@@ -1,0 +1,60 @@
+@use 'modal';
+@use 'typography';
+
+:host {
+  display: contents;
+}
+
+.confirm-dialog__backdrop {
+  @include modal.dialog-backdrop;
+}
+
+.confirm-dialog {
+  @include modal.dialog-shell;
+}
+
+.confirm-dialog__title {
+  @include modal.dialog-title;
+}
+
+.confirm-dialog__description {
+  @include modal.dialog-description;
+}
+
+.confirm-dialog__error {
+  @include modal.dialog-error;
+}
+
+.confirm-dialog__actions {
+  @include modal.dialog-actions;
+}
+
+.posponer-dialog__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.posponer-dialog__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  @include typography.type(body-medium);
+
+  input[type='radio'] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-on-surface);
+  }
+}
+
+.posponer-dialog__option--selected {
+  background-color: var(--color-surface-variant);
+  font-weight: 600;
+}
