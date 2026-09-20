@@ -9,7 +9,8 @@ export type IconName =
   | 'close'
   | 'user'
   | 'chevron-right'
-  | 'alert-triangle';
+  | 'alert-triangle'
+  | 'check';
 
 @Component({
   selector: 'app-icon',
