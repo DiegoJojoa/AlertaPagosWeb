@@ -1,0 +1,27 @@
+<div class="chart" [class.chart--empty]="!hasData()">
+  @if (hasData()) {
+    <div class="chart__bars" aria-label="Gráfico de pagos por estado">
+      @for (bar of bars(); track bar.variant) {
+        <div class="chart__column">
+          <strong class="chart__value">{{ bar.value }}</strong>
+          <div
+            class="chart__bar"
+            [class]="'chart__bar--' + bar.variant"
+            [style.height.px]="bar.height"
+          ></div>
+          <span class="chart__label" [class]="'chart__label--' + bar.variant">
+            {{ bar.label }}
+          </span>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state" role="status">
+      <div class="empty-state__icon" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <strong>No hay pagos registrados en este periodo</strong>
+      <p>Prueba seleccionando un periodo diferente.</p>
+    </div>
+  }
+</div>

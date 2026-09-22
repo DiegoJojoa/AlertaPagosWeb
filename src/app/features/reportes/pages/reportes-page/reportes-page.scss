@@ -1,12 +1,168 @@
 @use 'typography';
+@use 'breakpoints';
 
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
 .page__title {
   color: var(--color-on-surface);
-  margin-bottom: var(--space-2);
   @include typography.type(headline);
 }
 
-.page__subtitle {
+.filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.filters__label {
   color: var(--color-on-surface-variant);
-  @include typography.type(body-large);
+  white-space: nowrap;
+  @include typography.type(label-medium);
+}
+.segments {
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #787878;
+  border-radius: var(--radius-full);
+}
+.segments__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 30px;
+  padding: 6px var(--space-3);
+  color: #424242;
+  white-space: nowrap;
+  border-right: 1px solid #787878;
+  @include typography.type(label-small);
+  &:last-child {
+    border-right: 0;
+  }
+}
+.segments__button--active {
+  color: var(--color-primary);
+  background: var(--color-primary-tint-12);
+  font-weight: 600;
+}
+.period-selector,
+.date-range label {
+  min-height: 32px;
+  background: var(--color-background);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
+}
+.period-selector--month {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px var(--space-3);
+  button {
+    color: var(--color-primary);
+    font-size: 1rem;
+  }
+  span {
+    text-transform: capitalize;
+    @include typography.type(label-large);
+  }
+}
+.period-selector--year select {
+  min-height: 30px;
+  padding: 0 var(--space-3);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  @include typography.type(label-large);
+}
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 3px var(--space-2);
+    color: var(--color-on-surface-variant);
+    @include typography.type(label-small);
+  }
+  input {
+    min-width: 126px;
+    padding: 2px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-on-surface);
+    @include typography.type(label-small);
+  }
+}
+.filters__apply {
+  min-height: 30px;
+  padding: 6px var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: var(--radius-full);
+  @include typography.type(label-small);
+  font-weight: 600;
+}
+.filters__clear {
+  color: var(--color-primary);
+  text-decoration: underline;
+  @include typography.type(label-small);
+  font-weight: 500;
+}
+.filters__error {
+  margin-top: calc(var(--space-4) * -1);
+  color: var(--color-error);
+  @include typography.type(caption);
+}
+.summary,
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  h2 {
+    color: var(--color-on-surface);
+    @include typography.type(title-large);
+  }
+}
+.summary__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+@include breakpoints.respond-down(breakpoints.$breakpoint-md) {
+  .summary__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@include breakpoints.respond-down(breakpoints.$breakpoint-sm) {
+  .filters {
+    align-items: stretch;
+  }
+  .filters__label {
+    width: 100%;
+  }
+  .segments {
+    width: 100%;
+  }
+  .segments__button {
+    flex: 1;
+    white-space: normal;
+  }
+  .date-range {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .date-range label {
+    flex: 1;
+  }
+  .summary__cards {
+    grid-template-columns: 1fr;
+  }
 }

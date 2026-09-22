@@ -1,4 +1,8 @@
-<article class="stat-card" [class]="'stat-card--' + variant()">
+<article
+  class="stat-card"
+  [class]="'stat-card--' + variant()"
+  [class.stat-card--report]="appearance() === 'report'"
+>
   <span class="stat-card__label">{{ label() }}</span>
   <div class="stat-card__values">
     <span class="stat-card__count">{{ cantidad() }}</span>
