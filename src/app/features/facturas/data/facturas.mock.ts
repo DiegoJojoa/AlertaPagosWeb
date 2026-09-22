@@ -1,4 +1,4 @@
-import { Factura, FacturaListado } from '../models/factura.model';
+import { Factura } from '../models/factura.model';
 
 function diasDesdeHoy(dias: number): Date {
   const fecha = new Date();
@@ -121,43 +121,6 @@ export const MOCK_FACTURAS: readonly Factura[] = [
       { fecha: diasDesdeHoy(-18), descripcion: 'Factura enviada' },
       { fecha: diasDesdeHoy(-4), descripcion: 'Factura vencida' },
     ],
-  },
-];
-
-/** Datos del listado Web definidos por los mockups de Facturas. */
-export const MOCK_FACTURAS_LISTADO: readonly FacturaListado[] = [
-  {
-    id: 'pago-1',
-    numero: 'FAC-00123',
-    servicio: 'Energía',
-    empresa: 'ElectroBog',
-    monto: 72300,
-    fechaVencimiento: new Date(2026, 8, 22),
-    estado: 'pendiente',
-    historial: [],
-    esProxima: true,
-  },
-  {
-    id: 'pago-2',
-    numero: 'FAC-00124',
-    servicio: 'Internet',
-    empresa: 'NetColombia',
-    monto: 89900,
-    fechaVencimiento: new Date(2026, 8, 28),
-    estado: 'pendiente',
-    historial: [],
-    esProxima: true,
-  },
-  {
-    id: 'pago-3',
-    numero: 'FAC-00125',
-    servicio: 'Agua',
-    empresa: 'Aguas de Bogotá',
-    monto: 58200,
-    fechaVencimiento: new Date(2026, 9, 2),
-    estado: 'pendiente',
-    historial: [],
-    esProxima: false,
   },
 ];
 

@@ -1,42 +1,4 @@
 <section class="page">
-  <header class="page__header">
-    <h1 class="page__title">Facturas</h1>
-    <p class="page__subtitle">Consulta y gestiona tus facturas registradas.</p>
-  </header>
-
-  <app-invoice-filter-tabs
-    [selectedFilter]="selectedFilter()"
-    (filterChanged)="seleccionarFiltro($event)"
-  />
-
-  @switch (estado().tipo) {
-    @case ('cargando') {
-      <div class="skeleton-list" aria-hidden="true">
-        @for (i of [1, 2, 3]; track i) {
-          <div class="skeleton-row"></div>
-        }
-      </div>
-      <p class="sr-only" role="status">Cargando facturas…</p>
-    }
-    @case ('error') {
-      <div class="page__error" role="alert">
-        <p>No se pudieron cargar las facturas. Intenta de nuevo.</p>
-        <button type="button" class="btn-outlined" (click)="reintentar()">Reintentar</button>
-      </div>
-    }
-    @case ('contenido') {
-      @if (facturasVisibles().length > 0) {
-        <ul class="invoice-list">
-          @for (factura of facturasVisibles(); track factura.id) {
-            <app-invoice-list-row [factura]="factura" />
-          }
-        </ul>
-      } @else {
-        <div class="page__empty">
-          <p class="page__empty-title">No hay facturas para mostrar</p>
-          <p>Prueba seleccionando otro filtro.</p>
-        </div>
-      }
-    }
-  }
+  <h1 class="page__title">Facturas</h1>
+  <p class="page__subtitle">Esta sección estará disponible próximamente.</p>
 </section>
