@@ -2,14 +2,39 @@ import { Injectable, inject } from '@angular/core';
 import { NEVER, Observable, of, throwError } from 'rxjs';
 import { delay, switchMap } from 'rxjs/operators';
 import { MockScenarioService } from '../../../core/config/mock-scenario.service';
-import { MOCK_FACTURA_CONTENIDO_EXTENSO, MOCK_FACTURAS } from '../data/facturas.mock';
-import { Factura } from '../models/factura.model';
+import {
+  MOCK_FACTURA_CONTENIDO_EXTENSO,
+  MOCK_FACTURAS,
+  MOCK_FACTURAS_LISTADO,
+} from '../data/facturas.mock';
+import { Factura, FacturaListado } from '../models/factura.model';
 
 const LATENCIA_SIMULADA_MS = 500;
 
 @Injectable({ providedIn: 'root' })
 export class FacturaService {
   private readonly mockScenario = inject(MockScenarioService);
+
+  obtenerFacturas(): Observable<readonly FacturaListado[]> {
+    const escenario = this.mockScenario.current();
+
+    if (escenario === 'loading') {
+      return NEVER;
+    }
+
+    if (escenario === 'error') {
+      return of([]).pipe(
+        delay(LATENCIA_SIMULADA_MS),
+        switchMap(() => throwError(() => new Error('No se pudieron cargar las facturas.'))),
+      );
+    }
+
+    if (escenario === 'empty') {
+      return of([]).pipe(delay(LATENCIA_SIMULADA_MS));
+    }
+
+    return of(MOCK_FACTURAS_LISTADO).pipe(delay(LATENCIA_SIMULADA_MS));
+  }
 
   /** Devuelve `null` cuando no existe ninguna factura con ese id (estado "vacío" del detalle). */
   obtenerFactura(id: string): Observable<Factura | null> {

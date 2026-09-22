@@ -15,3 +15,7 @@ export interface Factura {
   readonly estado: EstadoFactura;
   readonly historial: readonly EventoHistorialFactura[];
 }
+
+export interface FacturaListado extends Factura {
+  readonly esProxima: boolean;
+}

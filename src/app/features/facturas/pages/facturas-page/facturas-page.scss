@@ -1,12 +1,78 @@
 @use 'typography';
 
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.page__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
 .page__title {
   color: var(--color-on-surface);
-  margin-bottom: var(--space-2);
   @include typography.type(headline);
 }
 
 .page__subtitle {
   color: var(--color-on-surface-variant);
-  @include typography.type(body-large);
+  @include typography.type(body-small);
+}
+
+.invoice-list,
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton-row {
+  height: 80px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-variant) 25%,
+    var(--color-outline-variant) 37%,
+    var(--color-surface-variant) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+.page__error,
+.page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+}
+
+.page__error {
+  color: var(--color-on-error-container);
+  background-color: var(--color-error-container);
+}
+
+.page__empty {
+  color: var(--color-on-surface-variant);
+  border: 1px dashed var(--color-outline-variant);
+}
+
+.page__empty-title {
+  color: var(--color-on-surface);
+  @include typography.type(title-large);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
 }
