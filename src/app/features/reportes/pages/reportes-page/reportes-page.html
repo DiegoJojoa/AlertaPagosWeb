@@ -1,4 +1,95 @@
 <section class="page">
   <h1 class="page__title">Reportes</h1>
-  <p class="page__subtitle">Esta sección estará disponible próximamente.</p>
+  <div class="filters" aria-label="Filtros de reportes">
+    <span class="filters__label">Filtrar por</span>
+    <div class="segments" role="group" aria-label="Periodo">
+      @for (period of periodTypes; track period.value) {
+        <button
+          type="button"
+          class="segments__button"
+          [class.segments__button--active]="selectedPeriodType() === period.value"
+          [attr.aria-pressed]="selectedPeriodType() === period.value"
+          (click)="selectPeriod(period.value)"
+        >
+          @if (selectedPeriodType() === period.value) {
+            <span aria-hidden="true">✓</span>
+          }
+          {{ period.label }}
+        </button>
+      }
+    </div>
+    @switch (selectedPeriodType()) {
+      @case ('month') {
+        <div class="period-selector period-selector--month">
+          <button type="button" aria-label="Mes anterior" (click)="moveMonth(-1)">‹</button>
+          <span>{{ monthLabel() }}</span>
+          <button type="button" aria-label="Mes siguiente" (click)="moveMonth(1)">›</button>
+        </div>
+      }
+      @case ('year') {
+        <label class="period-selector period-selector--year">
+          <span class="sr-only">Año</span>
+          <select [value]="selectedYear()" (change)="updateYear($event)">
+            <option [value]="2024">2024</option>
+            <option [value]="2025">2025</option>
+            <option [value]="2026">2026</option>
+          </select>
+        </label>
+      }
+      @case ('custom') {
+        <div class="date-range">
+          <label
+            ><span>Desde:</span
+            ><input
+              type="date"
+              [value]="customStartDate()"
+              [max]="customEndDate()"
+              (change)="updateStartDate($event)"
+          /></label>
+          <span aria-hidden="true">—</span>
+          <label
+            ><span>Hasta:</span
+            ><input
+              type="date"
+              [value]="customEndDate()"
+              [min]="customStartDate()"
+              (change)="updateEndDate($event)"
+          /></label>
+        </div>
+      }
+    }
+    <button type="button" class="filters__apply" (click)="applyFilters()">Aplicar</button>
+    <button type="button" class="filters__clear" (click)="clearFilters()">Limpiar filtro</button>
+  </div>
+  @if (validationError()) {
+    <p class="filters__error" role="alert">{{ validationError() }}</p>
+  }
+
+  <section class="summary" aria-labelledby="summary-title">
+    <h2 id="summary-title">{{ summaryTitle() }}</h2>
+    <div class="summary__cards">
+      <app-stat-card
+        variant="pagada"
+        appearance="report"
+        [cantidad]="currentSummary().pagadas.cantidad"
+        [total]="currentSummary().pagadas.total"
+      />
+      <app-stat-card
+        variant="pendiente"
+        appearance="report"
+        [cantidad]="currentSummary().pendientes.cantidad"
+        [total]="currentSummary().pendientes.total"
+      />
+      <app-stat-card
+        variant="vencida"
+        appearance="report"
+        [cantidad]="currentSummary().vencidas.cantidad"
+        [total]="currentSummary().vencidas.total"
+      />
+    </div>
+  </section>
+  <section class="chart-section" aria-labelledby="chart-title">
+    <h2 id="chart-title">Pagos por estado</h2>
+    <app-payments-bar-chart [summary]="currentSummary()" />
+  </section>
 </section>

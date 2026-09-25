@@ -20,6 +20,9 @@ describe('app routes', () => {
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/reportes');
     expect(harness.routeNativeElement?.textContent).toContain('Reportes');
+    expect(
+      harness.routeNativeElement?.querySelector('.sidebar-nav__link--active')?.textContent,
+    ).toContain('Reportes');
   });
 
   it('should render the not-found page for an unknown route', async () => {
